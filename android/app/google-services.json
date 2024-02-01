@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "489590375456",
+    "project_id": "videocallappagora",
+    "storage_bucket": "videocallappagora.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:489590375456:android:33882d1a4a5fd2384f6845",
+        "android_client_info": {
+          "package_name": "com.example.video_call_app_agora"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnyu2o4BzHtPJ9Z_P-3GCET6OEoB_tj3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
