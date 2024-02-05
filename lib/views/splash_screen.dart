@@ -8,10 +8,6 @@ import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:video_call_app_agora/views/sign_in_screen.dart';
 import '../constant/app-constant.dart';
-import 'main_screen.dart';
-
-
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,24 +23,16 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      logInCheck(context);
+      Get.to(() =>  SignIn(),
+          transition: Transition.leftToRightWithFade);
     });
   }
 
-  Future<void> logInCheck(BuildContext context) async {
-    if (user != null) {
-      Get.offAll(() =>  MainPage(),
-          transition: Transition.leftToRightWithFade);
-    } else {
-      Get.to(() =>  SignIn(),
-          transition: Transition.leftToRightWithFade);
-    }
-  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppConstant.appScendoryColor,
+        backgroundColor: AppConstant.appMainColor,
         extendBodyBehindAppBar: true,
         body: SizedBox(
           width: Get.width,
@@ -53,16 +41,26 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Expanded(
+              //     child: Center(
+              //       child: Container(
+              //         alignment: Alignment.center,
+              //         child: SizedBox(
+              //             width: 227.w,
+              //             height: 49.48.h,
+              //             child: SvgPicture.asset('assets/images/flat-color-icons_google.svg')),
+              //       ),
+              //     )),
               Expanded(
-                  child: Center(
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: SizedBox(
-                          width: 227.w,
-                          height: 49.48.h,
-                          child: SvgPicture.asset('assets/images/flat-color-icons_google.svg')),
-                    ),
-                  )),
+                child: Center(
+                  child: Container(
+                    width: 227.w,
+                    height: 227.w, // Set height equal to width for a square
+                    child: Image.asset('assets/images/logosplash.png'), // Replace with your PNG image path
+                  ),
+                ),
+              ),
+
               Container(
                 alignment: Alignment.center,
                 margin: const EdgeInsets.only(bottom: 20.0).w,

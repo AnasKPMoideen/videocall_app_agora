@@ -1,5 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:video_call_app_agora/constant/app-constant.dart';
 import '../controller/google_signin_controller.dart';
 
 class SignIn extends StatelessWidget {
@@ -9,139 +13,108 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true, // Make the body extend behind the app bar
       appBar: AppBar(
-        title: Text('Sign In'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            await _googleSignInController.signInWithGoogle();
-          },
-          child: Text('Sign In with Google'),
+        title: Center(
+          child: Text(
+            'Sign In',
+            style: TextStyle(
+              color: Colors.white, // Set text color for app bar title
+            ),
+          ),
         ),
+        backgroundColor: Colors.transparent, // Make app bar transparent
+        elevation: 0, // Remove the shadow
+        automaticallyImplyLeading: false,
+      ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Background Image (SVG)
+          SvgPicture.asset(
+            'assets/images/background.svg',
+            fit: BoxFit.cover,
+          ),
+          // Glass Effect Container
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.3), // Adjust the opacity as needed
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(20),
+              ),
+            ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0), // Adjust the blur intensity
+              child: Container(
+                color: Colors.transparent,
+              ),
+            ),
+          ),
+          // Content
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 150,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+                child: Center(
+                  child: Text(
+                    'Welcome Back',
+                    style: TextStyle(
+                      fontSize: 44,
+                      fontWeight: FontWeight.bold,
+                      color: AppConstant.appTextColor,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(1.0),
+                child: Center(
+                  child: Text(
+                    'Hey, Lets join together',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: AppConstant.appStatusBarColor,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        await _googleSignInController.signInWithGoogle();
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // Google Logo (SVG)
+                          SvgPicture.asset(
+                            'assets/images/flat-color-icons_google.svg',
+                            height: 24,
+                            width: 24,
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            'Sign in with Google',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
 }
-
-
-
-
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:flutter_svg/svg.dart';
-// import 'package:get/get.dart';
-// import 'package:get/route_manager.dart';
-// import '../constant/app-constant.dart';
-// import '../controller/google_signin_controller.dart';
-//
-//
-// class SignIn extends StatefulWidget {
-//   const SignIn({super.key});
-//
-//   @override
-//   State<SignIn> createState() => _SignInState();
-// }
-//
-// class _SignInState extends State<SignIn> {
-//   final _formKey = GlobalKey<FormState>();
-//   final GoogleSignInController _googleSignInController = Get.put(GoogleSignInController());
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: Scaffold(
-//         backgroundColor: AppConstant.appScendoryColor,
-//         extendBodyBehindAppBar: true,
-//         appBar: AppBar(
-//           backgroundColor: AppConstant.appScendoryColor,
-//           elevation: 0,
-//           centerTitle: true,
-//         ),
-//         body: SingleChildScrollView(
-//           child: SizedBox(
-//             width: Get.width,
-//             height: Get.height,
-//             child: Column(
-//                 mainAxisAlignment: MainAxisAlignment.start,
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Container(
-//                     margin: const EdgeInsets.only(top: 50.0).w,
-//                     width: MediaQuery.of(context).size.width,
-//                     child: Column(children: [
-//                       Text(
-//                         'Login here',
-//                         textAlign: TextAlign.center,
-//                         style: TextStyle(
-//                           color: AppConstant.yellowText,
-//                           fontSize: 30.sp,
-//                           fontFamily: 'Roboto-Bold',
-//                         ),
-//                       ),
-//                       SizedBox(
-//                         height: 20.h,
-//                       ),
-//                       const Text(
-//                         'Welcome back you’ve been missed!',
-//                         textAlign: TextAlign.center,
-//                         style: TextStyle(
-//                           color: Colors.white,
-//                           fontSize: 14,
-//                           fontFamily: 'Roboto-Regular',
-//                           fontWeight: FontWeight.w500,
-//                         ),
-//                       ),
-//                     ]),
-//                   ),
-//                   Expanded(
-//                     child: Center(
-//                       child: Form(
-//                         key: _formKey,
-//                         child: SizedBox(
-//                           width: 323.w,
-//                           child: Column(
-//                             mainAxisAlignment: MainAxisAlignment.center,
-//                             crossAxisAlignment: CrossAxisAlignment.center,
-//                             children: [
-//                               SizedBox(
-//                                 height: 15.h,
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                   Container(
-//                     alignment: Alignment.center,
-//                     margin: const EdgeInsets.only(bottom: 90.0).w,
-//                     width: MediaQuery.of(context).size.width,
-//                     child: Row(
-//                         mainAxisAlignment: MainAxisAlignment.center,
-//                         children: [
-//                           GestureDetector(
-//                             onTap: () {
-//                               _googleSignInController.signInWithGoogle();
-//                             },
-//                             child: SizedBox(
-//                               width: 60.w,
-//                               height: 44.h,
-//                               child: SvgPicture.asset(
-//                                   'assets/images/flat-color-icons_google.svg'),
-//                             ),
-//                           ),
-//                           SizedBox(
-//                             width: 10.w,
-//                           ),
-//                         ]),
-//                   ),
-//                 ]),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

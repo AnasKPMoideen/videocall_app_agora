@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -6,7 +5,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:video_call_app_agora/views/sign_in_screen.dart';
 import '../models/user_model.dart';
 import '../views/main_screen.dart';
-import 'get_devc_token_controller.dart';
 
 
 class GoogleSignInController extends GetxController {
@@ -16,8 +14,7 @@ class GoogleSignInController extends GetxController {
   Rx<User?> user = Rx<User?>(null);
 
   Future<void> signInWithGoogle() async {
-    final GetDeviceTokenController getDeviceTokenController =
-    Get.put(GetDeviceTokenController());
+
     try {
       final GoogleSignInAccount? googleSignInAccount =
       await googleSignIn.signIn();
@@ -43,16 +40,12 @@ class GoogleSignInController extends GetxController {
             username: user.displayName.toString(),
             email: user.email.toString(),
             userImg: user.photoURL.toString(),
-            userDeviceToken: getDeviceTokenController.deviceToken.toString(),
 
           );
 
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(user.uid)
-              .set(userModel.toMap());
           EasyLoading.dismiss();
-          Get.offAll(() => MainPage());
+          // Get.offAll(() => MainPage());
+          Get.to(MainPage());
         }
       }
     } catch (e) {
@@ -68,7 +61,7 @@ class GoogleSignInController extends GetxController {
 
       print("User Signed Out");
       Get.offAll(() =>
-       SignIn()); // Use Get.offAll to navigate to MainScreen
+          SignIn()); // Use Get.offAll to navigate to MainScreen
     } catch (e) {
       // Handle any errors that occurred during sign out
       print("Error signing out: $e");

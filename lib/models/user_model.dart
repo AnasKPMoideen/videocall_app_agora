@@ -3,14 +3,12 @@ class UserModel {
   final String username;
   final String email;
   final String userImg;
-  final String userDeviceToken;
 
   UserModel({
     required this.uId,
     required this.username,
     required this.email,
     required this.userImg,
-    required this.userDeviceToken,
   });
 
   // Serialize the UserModel instance to a JSON map
@@ -20,7 +18,6 @@ class UserModel {
       'username': username,
       'email': email,
       'userImg': userImg,
-      'userDeviceToken': userDeviceToken,
     };
   }
 
@@ -31,7 +28,6 @@ class UserModel {
       username: json['username'],
       email: json['email'],
       userImg: json['userImg'],
-      userDeviceToken: json['userDeviceToken'],
     );
   }
 }
